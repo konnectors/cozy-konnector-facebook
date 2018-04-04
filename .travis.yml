@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+- '8'
+env:
+  global:
+    # doubleface GITHUB_TOKEN
+    # to generate yours : travis encrypt GITHUB_TOKEN=<your_GITHUB_TOKEN> -r konnectors/cozy-konnector-facebook
+    - secure: "f2CcB3mjIJFvswKAFANnxtKf0PtDRiUy3GcIBllF88PZm4ZBXCBu+OlDB5cAQo7BNmqDGDkOkVrfHZ8HN61Yz9b47hHt3A2ECWv8V63AlyODNC/PKsbSClTpvGp+ypfhzS6QouM9pRdBzMUtKugyXWB3xJP3X7OM/kBjqWr2E26G5dwuK9kyeEW3RQbytfuBuoipGxrZ6gygIoxpHzDQg2G62ojGAJrYaH0ns0tXMI/1FSVSMK+QJ7ewsoWLwXFw9VG9W0UcJYYON8nCLtAxovBH8/oPn/rH9+Xh5YsvCGGFMzqmfGE/Q99/pI76K4mjWlBs9tmXGiI+DcnjTPa6X3YWq5B3s7f7x8bBELHPv7vIQvNQyNyyNzoqs1uyr5p4Oa1pTe38I1hanXl9T8Jhqo8OVTPaJXoId3ycJvsQE70YtNwKN3GYI9iPxCJJcTYaa5/Ow3bzxg8Arc+nYVjFGoTrCir9ccCaFKLgWKO6xP9u23KAL1T1esAeJy48WLVEtRCrBkXrTA9+oeizaCPRjx1r9tTksbSCkVq1g3DSKu+biJ/wcg+fMNwqw+Qqv4Ld3a5kFehnNflQcjOFqVVdc6QfjrnYmkgCGBZu97VOhu44khVrIEFsbCzb78JXkxs0oJ8ES6DCoDClNqfusMm2l2ErdkpOxAvzUHJ6xFrbvHo="
+cache:
+  yarn: true
+  directories:
+    - node_modules
+script:
+  - yarn lint
+  - yarn build
+deploy:
+  - provider: script
+    repo: $TRAVIS_REPO_SLUG
+    skip-cleanup: true
+    script: yarn deploy
+    on:
+      branch: master
+  - provider: script
+    repo: $TRAVIS_REPO_SLUG
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=latest yarn deploy
+    on:
+      branch: prod

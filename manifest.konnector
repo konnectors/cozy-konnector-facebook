@@ -1,0 +1,36 @@
+{
+  "version": "0.1.0",
+  "name": "Facebook",
+  "type": "node",
+  "slug": "facebook",
+  "source": "git://github.com/konnectors/cozy-konnector-facebook.git",
+  "locales": {
+    "fr": {
+      "description":
+        "Reprend la main sur vos données que vous avez données à Facebook : contacts, photos",
+      "permissions": {
+        "contacts": {
+          "description": "Exigée pour sauvegarder les contacts"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "albums": {
+      "description": "Required to create the albums where the photo will be saved",
+      "type": "io.cozy.photos.albums"
+    },
+    "accounts": {
+      "description": "Required to get the account's data",
+      "type": "io.cozy.accounts"
+    },
+    "files": {
+      "description": "Required to save images",
+      "type": "io.cozy.files"
+    }
+  },
+  "developer": {
+    "name": "cozy",
+    "url": "cozy.io"
+  }
+}
