@@ -1,4 +1,7 @@
 /* eslint no-console: 0 */
+
+// This is a development tool which will help you to get an access_token to your facebook account
+// and place it in konnector-dev-config.json so that you can run in standalone or development mode.
 const ConfigStore = require('configstore')
 const pkg = require('./package.json')
 const https = require('https')
@@ -46,7 +49,6 @@ function getFacebookCode() {
           scope: SCOPES,
           redirect_uri: 'https://localhost:8000/oauthcallback'
         })
-        console.log(authorizeUrl, 'authorize url')
         opn(authorizeUrl)
       })
   })
@@ -115,6 +117,24 @@ function getAccountInfo() {
   })
 }
 
+function showHelp() {
+  console.log(
+    chalk.yellow(
+      `
+yarn token [filepath]
+
+This command will help you to fetch an access token from your facebook account
+This token will be stored in ~/.config/configStore/cozy-konnector-facebook.json, and you can reset
+a new token with it
+
+Options:
+  --reset : Reset the token save in your config file
+  -h      : Show this help
+`
+    )
+  )
+}
+
 clear()
 console.log(
   chalk.yellow(
@@ -125,9 +145,16 @@ console.log(
 const KONNECTOR_DEV_CONFIG_FILE = 'konnector-dev-config.json'
 const run = async () => {
   const {
+    h,
     reset,
     filename: configFilename = KONNECTOR_DEV_CONFIG_FILE
   } = require('minimist')(process.argv.slice(2))
+
+  if (h) {
+    showHelp()
+    return
+  }
+
   reset && resetConfigStore()
   const accessToken = await getToken()
   fs.writeFileSync(
