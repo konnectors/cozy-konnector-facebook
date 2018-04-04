@@ -18,28 +18,31 @@ async function start(fields) {
   await synchronize(albums, fields)
 }
 
-// fetches albums and returns them in the form : {
-//   "album name 1": ["image url 1", "image url 2"],
-//   "album name 2": ["image url 3", "image url 4"],
-//   ...
-// }
-async function fetchData({ accessToken }) {
+/* fetches albums and returns them in the form :
+ * @param  {} fields:
+ * @param {} fields.access_token: a facebook access token
+ * ```
+ * {
+ *   "album name 1": ["image url 1", "image url 2"],
+ *   "album name 2": ["image url 3", "image url 4"],
+ *   ...
+ * }
+ * ```
+*/
+async function fetchData({ access_token }) {
   const result = {}
   try {
-    const context = { accessToken }
+    const context = { access_token }
+    log('info', 'getting the list of albums')
     const albums = await fb.api('/me/albums', context)
     for (const { id, name } of albums.data) {
-      result[name] = []
-      const photos = await fb.api(`/${id}/photos`, context)
-      for (const { id } of photos.data) {
-        const photoLink = await fb.api(`/${id}`, {
-          fields: 'images',
-          ...context
-        })
-        result[name].push(photoLink.images[0].source)
-      }
+      result[name] = await fetchAlbumPhotos(
+        `/${id}?fields=photos{images}`,
+        context
+      )
     }
   } catch (err) {
+    log('error', err.message)
     if (
       err.response &&
       err.response.error &&
@@ -52,13 +55,27 @@ async function fetchData({ accessToken }) {
   return result
 }
 
+async function fetchAlbumPhotos(url, context) {
+  let result = []
+  const albumImages = await fb.api(url, context)
+  result = result.concat(
+    albumImages.photos.data.map(photo => photo.images[0].source)
+  )
+
+  if (albumImages.photos.paging.next) {
+    const nextPage = await fetchAlbumPhotos(albumImages.paging.next, context)
+    result = result.concat(nextPage)
+  }
+  return result
+}
+
 // synchronize fetched albums into the cozy
 async function synchronize(albums, fields) {
   for (const albumName in albums) {
     // save the files to the cozy
     const picturesDocs = await saveFiles(
       albums[albumName].map(url => ({ fileurl: url })),
-      fields.folderPath
+      fields
     )
     const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
 
