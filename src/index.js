@@ -85,12 +85,12 @@ async function synchronize(albums, fields) {
       'io.cozy.photos.albums',
       ['name']
     )
-    await referenceNewFilesInAlbum(albumDoc, picturesIds)
+    await updateReferencedFiles(albumDoc, picturesIds)
   }
 }
 
-async function referenceNewFilesInAlbum(album, fileIds) {
-  const referencedFileIds = await cozyClient.data.listReferencedFiles(album)
+async function updateReferencedFiles(doc, fileIds) {
+  const referencedFileIds = await cozyClient.data.listReferencedFiles(doc)
   const newFileIds = fileIds.filter(id => !referencedFileIds.includes(id))
-  await cozyClient.data.addReferencedFiles(album, newFileIds)
+  await cozyClient.data.addReferencedFiles(doc, newFileIds)
 }
