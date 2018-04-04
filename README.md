@@ -87,7 +87,7 @@ Now run `yarn dev` one more time, it should be ok.
 
 The files are saved in the root directory of your cozy by default.
 
-:warning: To register the `client_id`, `client_secret`, `authh_endpoint`, `token_endpoint`, `grant_mode` and `redirect_uri` to your stack, see https://github.com/cozy/cozy-stack/blob/master/docs/account_types.md#facebook
+:warning: To register the `client_id`, `client_secret`, `auth_endpoint`, `token_endpoint`, `grant_mode` and `redirect_uri` to your stack, see https://github.com/cozy/cozy-stack/blob/master/docs/account_types.md#facebook
 
 ### Use the konnector with cozy-collect
 
@@ -97,7 +97,7 @@ Then you'll have to register the konnector's oauth system into the cozy-stack's 
 
 ```
 curl -X PUT 'localhost:5984/secrets%2Fio-cozy-account_types'
-curl -X PUT localhost:5984/secrets%2Fio-cozy-account_types/facebook -d '{ "grant_mode": "authorization_code", "client_id": "<CLIENT_ID>", "client_secret": "<CLIENT_SECRET>", "auth_endpoint": "https://www.facebook.com/v2.3/dialog/oauth?response_type=code", "token_endpoint": "https://graph.facebook.com/2.12/oauth2/access_token" }'
+curl -X PUT localhost:5984/secrets%2Fio-cozy-account_types/facebook -d '{ "grant_mode": "authorization_code", "client_id": "<CLIENT_ID>", "client_secret": "<CLIENT_SECRET>", "auth_endpoint": "https://www.facebook.com/v2.3/dialog/oauth", "token_endpoint": "https://graph.facebook.com/2.12/oauth2/access_token" }'
 ```
 
 Finally, you'll need to register the correct `redirect_uri` to the [Facebook application page](https://developers.facebook.com/).
