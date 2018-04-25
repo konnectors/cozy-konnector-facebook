@@ -3,11 +3,16 @@ const {
   saveFiles,
   updateOrCreate,
   cozyClient,
-  mkdirp,
   normalizeFilename,
   log
 } = require('cozy-konnector-libs')
+const mkdirp = require('./mkdirp')
 const fb = require('fb')
+const { URL } = require('url')
+
+process.env.SENTRY_DSN =
+  process.env.SENTRY_DSN ||
+  'https://cbece4bebae0498fb3a0f99be70e988a:6703a424ebce43eca2bada22bbaa1f23@sentry.cozycloud.cc/40'
 
 module.exports = new BaseKonnector(start)
 
@@ -37,6 +42,7 @@ async function start(fields) {
 }
 
 async function fetchOneAlbum({ id, name }, context, fields) {
+  log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging(
     `/${id}/photos?fields=images`,
     context
@@ -45,8 +51,8 @@ async function fetchOneAlbum({ id, name }, context, fields) {
   })
 
   // save the files to the cozy
-  const albumName = normalizeFilename(`Facebook ${name}`)
-  const albumFolder = mkdirp(fields.folderPath, albumName)
+  const albumName = await normalizeFilename(`Facebook ${name}`)
+  const albumFolder = await mkdirp(fields.folderPath, albumName)
   const picturesDocs = await saveFiles(picturesObjects, albumFolder.path)
   const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
 
@@ -65,7 +71,8 @@ async function fetchOneAlbum({ id, name }, context, fields) {
 async function fetchListWithPaging(url, context) {
   let results = []
   while (url) {
-    const x = await fb.api(url, context)
+    const parsed = new URL(url, 'https://graph.facebook.com')
+    const x = await fb.api(parsed.pathname + parsed.search, context)
     const { data, paging } = x
     url = paging && paging.next
     results = results.concat(data)

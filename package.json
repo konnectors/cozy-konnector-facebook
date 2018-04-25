@@ -21,7 +21,7 @@
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/konnectors/cozy-konnector-facebook.git}"
   },
   "dependencies": {
-    "cozy-konnector-libs": "3.8.1",
+    "cozy-konnector-libs": "4.1.8",
     "fb": "^2.0.0"
   },
   "devDependencies": {
