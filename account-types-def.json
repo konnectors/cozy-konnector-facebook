@@ -1,0 +1,10 @@
+{
+  "_id": "facebook",
+  "grant_mode": "authorization_code",
+  "redirect_uri": "https://oauthcallback.cozy.tools/accounts/facebook/redirect",
+  "token_mode": "basic",
+  "token_endpoint": "https://graph.facebook.com/v2.12/oauth/access_token",
+  "auth_endpoint": "https://www.facebook.com/v2.12/dialog/oauth",
+  "client_id": "$COZY_FB_CLIENT_ID",
+  "client_secret": "$COZY_FB_CLIENT_SECRET"
+}

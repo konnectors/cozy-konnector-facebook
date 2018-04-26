@@ -3,9 +3,16 @@ const {
   saveFiles,
   updateOrCreate,
   cozyClient,
+  normalizeFilename,
   log
 } = require('cozy-konnector-libs')
+const mkdirp = require('./mkdirp')
 const fb = require('fb')
+const { URL } = require('url')
+
+process.env.SENTRY_DSN =
+  process.env.SENTRY_DSN ||
+  'https://cbece4bebae0498fb3a0f99be70e988a:6703a424ebce43eca2bada22bbaa1f23@sentry.cozycloud.cc/40'
 
 module.exports = new BaseKonnector(start)
 
@@ -14,33 +21,13 @@ module.exports = new BaseKonnector(start)
  * @param {} fields.access_token: a facebook access token
  */
 async function start(fields) {
-  const albums = await fetchData(fields)
-  await synchronize(albums, fields)
-}
-
-/* fetches albums and returns them in the form :
- * @param  {} fields:
- * @param {} fields.access_token: a facebook access token
- * ```
- * {
- *   "album name 1": ["image url 1", "image url 2"],
- *   "album name 2": ["image url 3", "image url 4"],
- *   ...
- * }
- * ```
-*/
-async function fetchData({ access_token }) {
-  const result = {}
   try {
+    const { access_token } = fields
     const context = { access_token }
     log('info', 'getting the list of albums')
-    const albums = await fb.api('/me/albums', context)
-    for (const { id, name } of albums.data) {
-      result[name] = await fetchAlbumPhotos(
-        `/${id}?fields=photos{images}`,
-        context
-      )
-    }
+    const albums = await fetchListWithPaging('/me/albums', context)
+    log('info', `Got ${albums.length} albums`)
+    for (const album of albums) await fetchOneAlbum(album, context, fields)
   } catch (err) {
     log('error', err.message)
     if (
@@ -52,45 +39,43 @@ async function fetchData({ access_token }) {
       log('error', 'Access token expired. You should renew your access token')
     }
   }
-  return result
 }
 
-async function fetchAlbumPhotos(url, context) {
-  let result = []
-  const albumImages = await fb.api(url, context)
-  result = result.concat(
-    albumImages.photos.data.map(photo => photo.images[0].source)
+async function fetchOneAlbum({ id, name }, context, fields) {
+  log('info', `Fetching album "${name}"`)
+  const picturesObjects = (await fetchListWithPaging(
+    `/${id}/photos?fields=images`,
+    context
+  )).map(photo => {
+    return { fileurl: photo.images[0].source }
+  })
+
+  // save the files to the cozy
+  const albumName = await normalizeFilename(`Facebook ${name}`)
+  const albumFolder = await mkdirp(fields.folderPath, albumName)
+  const picturesDocs = await saveFiles(picturesObjects, albumFolder.path)
+  const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
+
+  // create the album if needed or fetch the correponding existing album
+  const [albumDoc] = await updateOrCreate(
+    [{ name: albumName }],
+    'io.cozy.photos.albums',
+    ['name']
   )
 
-  if (albumImages.photos.paging.next) {
-    const nextPage = await fetchAlbumPhotos(albumImages.paging.next, context)
-    result = result.concat(nextPage)
-  }
-  return result
+  const referencedFileIds = await cozyClient.data.listReferencedFiles(albumDoc)
+  const newFileIds = picturesIds.filter(id => !referencedFileIds.includes(id))
+  await cozyClient.data.addReferencedFiles(albumDoc, newFileIds)
 }
 
-// synchronize fetched albums into the cozy
-async function synchronize(albums, fields) {
-  for (const albumName in albums) {
-    // save the files to the cozy
-    const picturesDocs = await saveFiles(
-      albums[albumName].map(url => ({ fileurl: url })),
-      fields
-    )
-    const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
-
-    // create the album if needed or fetch the correponding existing album
-    const [albumDoc] = await updateOrCreate(
-      [{ name: `Facebook ${albumName}` }],
-      'io.cozy.photos.albums',
-      ['name']
-    )
-    await updateReferencedFiles(albumDoc, picturesIds)
+async function fetchListWithPaging(url, context) {
+  let results = []
+  while (url) {
+    const parsed = new URL(url, 'https://graph.facebook.com')
+    const x = await fb.api(parsed.pathname + parsed.search, context)
+    const { data, paging } = x
+    url = paging && paging.next
+    results = results.concat(data)
   }
-}
-
-async function updateReferencedFiles(doc, fileIds) {
-  const referencedFileIds = await cozyClient.data.listReferencedFiles(doc)
-  const newFileIds = fileIds.filter(id => !referencedFileIds.includes(id))
-  await cozyClient.data.addReferencedFiles(doc, newFileIds)
+  return results
 }
