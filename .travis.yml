@@ -3,26 +3,34 @@ node_js:
 - '8'
 env:
   global:
-    # doubleface GITHUB_TOKEN
-    # to generate yours : travis encrypt GITHUB_TOKEN=<your_GITHUB_TOKEN> -r konnectors/cozy-konnector-facebook
-    - secure: "kAu45Cgy+nnGck6rUqZrWwXhV+sdf8wTrYrcLkSDx/40eyLCOHPWwLYKcEaveIjaFqXR+LKsise1yeztHKmkrh8c48uTNqBnsWv7NsAHzg3O/rSW64J0HWo+yItJVbX7Cxz0v3RRorf5Jea0WPk8HF2zbcerJYHDNpqIMe7FAQiEzM4JOqb5bjQgrRuxeuMFT6QSQKVmzZp/bJnMQ8GLkH4Mi2m6213XYEt8strPdkn1u6j9b0vAKJSVbscOb+3Wo1f1PqKIDhhKo3h7KO27PZAzdGCJOwirn8yHeiLGwXXolytLRYpitFEuQRCeITbJXLUFtdEaAQbRb3lPDkOZJJXNNaRNlNafFpz0K/K/hqYQlKX8UeStS5rA13GIY1fAsLedHC0DkYSAhkxAakn2muy7dLAIsvVujmu0H0n8wcEKSik8Pd8XAg/taMev3jpSkHoulfMtbK/Utvwtj6vFkrZOV2sh7AjVkBq3cxO+odNEs4iJ4EFHlQDXzCOg/QgkO+3/w29BvbpTP2PT9n9TcJcCtJo0Y/1rOYvvcvRhUibgaKRCYXVO4BmxiJw1KGnwp7vObnJ2RyfJwgfbeXpO+Ej76Vqm2ewHUBD/2XbyFhzv0PJ3HE+w1iGyVLQgNYmrFmmot8uQPy1EHnrwaCZYg1HGTrA6I8TrCxk5D+sWr4o="
+  - secure: ZA9OZhsWQQcHGIv3L+FOj4SGKd231a1h3ghoKWaKiR9nRKLI5jrvV20zhioO7qSTheP0LE5f+gf/5+wEq5KgoyTJCRV4DkgfsXJflf8EUUuSVz0NGPgxykMXgRH2jnWx+KplYRP3+J/9k/OiXPmfTwgtPuFnGzQu4L08VBVxbTQIEKfP3SK4Z7yhUlsNTqYBvD6d/qcYgvDpVhRLuxfk8qgvrCwgIW3mIdXvMWw1dGg9YhOT7qw9D58pGx2g+a3hAEj5DtDpfXPfvRKqFfnAVcfv50MyHUzqgJYoUN7X5CoH8ttyrcTMquNE5zp05KRDBjav8qASq2VqFPgZvJG35p5kpj+aeLjVHWqa+Qal7ouz56r+UGSqtpRrqCR4xrdInAE+7cBOc2BUo3d4Ha5oanXq451epT39MGV8hZbSOIQumNUpTDXc1A+HIqEOMIJt46sfCRtZv1rmGa5lD8cZzMG7OP8Zx532D06f+Eve57lIjLfUxlGZ2zgBe2nZ3/BVZSZn2RuXn+Q86sbs0pyKj8wtrIYtAsrl1x2Tff8eZ4BusinkYM+U/0dxEsdCu2mMYH7Q2u7VaFVbJ0hYPVzjrFmfhBeURT6OMtu5Bf5rhmcppCpZuFXQXVmec+eII/P9FaeKqEpr3lsTFvpvYmvdyji53Uaj4/fL7xFA206UqnA=
+  - secure: 7MEpegKUGvyRz+fYnVSjGZ/NVoK9hXBDSngQrj6mQKjBJ2jfBItLlofpWLQYyqIeTQF8AZ4B5BwSemFbOx1Y4pENT1fw/fGXv46SCI5yAi4AvIJBpqMAo4qXkJYogLAbclA2VvXaez71n26WJHHQQOKX13djoz8tIAenLeOnG5iRerqRt99rEsgsNFHQUy45W/5cmHrK5MyLDvDMKHhGy8p0qLkXleP8yAjxLhNYitUyje3kzQktBsiKhlY5Qsp8rQwsaAjsJSsRQzvmzXNmaIi+HJXMvDlmq53fnbSRUrXES7E/kcBqe+A3xBvgf61fKn2JxoQRFF8E9+WgGjDX1ua7TNUw7Znppe4XLNiL2yxCtnLMrkURK3OliPWBdsCzIJi5E2UoUMDNBDyqwzzQ2wic8dTnCQEW1nGAX2CWp+1F0nEvhUmDW8R2aJl0ja3qgE0rRzO4ab6QMQ39q8GDLzD8hX8FR1hv/tbS17LkMSIRg/Y4nppekVlN+Ji5bwnaKADZhEyC+OXjZwessVZJNsY/fwTbCaLpba3cWajp//4d45P7kOS0+NKFGruUXvMOo7bBBHZzDmmzDj2nXtn/AEhI6PMnoQ0OE2NhkRD48lMPEvS60p5lyKLMbdGVvfs1UYzh2aDwmxUqDMpbbPc1Qyt2yUQqEzODUOWckiTkpwE=
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 script:
-  - yarn lint
-  - yarn build
+- yarn lint
+- yarn build
 deploy:
+  # publish dev versions
   - provider: script
-    repo: $TRAVIS_REPO_SLUG
+    repo: konnectors/cozy-konnector-facebook
     skip-cleanup: true
-    script: yarn deploy
+    script: DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
     on:
       branch: master
+  # publish on latest branch (will be removed when collect will use only the registry
   - provider: script
-    repo: $TRAVIS_REPO_SLUG
+    repo: konnectors/cozy-konnector-facebook
     skip-cleanup: true
-    script: DEPLOY_BRANCH=latest yarn deploy
+    script: DEPLOY_BRANCH=latest && yarn deploy
     on:
       branch: prod
+  # publish stable versions and beta versions based on tags
+  - provider: script
+    repo: konnectors/cozy-konnector-facebook
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=build && yarn deploy && yarn cozyPublish
+    on:
+      tags: true
