@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'standalone') {
   cozy.data.addReferencedFiles = () => {}
 }
 
-return async function mkdirp(...pathComponents) {
+module.exports = async function mkdirp(...pathComponents) {
   const path = join('/', ...pathComponents)
   const pathRepr = JSON.stringify(path)
 
