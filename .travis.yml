@@ -24,7 +24,7 @@ deploy:
   - provider: script
     repo: konnectors/cozy-konnector-facebook
     skip-cleanup: true
-    script: DEPLOY_BRANCH=latest && yarn deploy
+    script: DEPLOY_BRANCH=latest yarn deploy
     on:
       branch: prod
   # publish stable versions and beta versions based on tags
