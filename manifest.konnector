@@ -1,0 +1,76 @@
+{
+  "version": "1.0.0",
+  "name": "Facebook",
+  "type": "konnector",
+  "language": "node",
+  "slug": "facebook",
+  "icon": "icon.svg",
+  "source": "git://github.com/konnectors/cozy-konnector-facebook.git",
+  "editor": "Cozy",
+  "vendor_link": "https://facebook.com",
+  "categories": ["other"],
+  "data_types": ["pictures"],
+  "oauth": {
+    "account_type": "facebook",
+    "scope": "user_photos"
+  },
+  "fields": {
+    "advancedFields": {
+      "folderPath": {
+        "advanced": true,
+        "isRequired": false
+      }
+    }
+  },
+  "permissions": {
+    "albums": {
+      "type": "io.cozy.photos.albums"
+    },
+    "accounts": {
+      "type": "io.cozy.accounts"
+    },
+    "files": {
+      "type": "io.cozy.files"
+    }
+  },
+  "locales": {
+    "fr": {
+      "short_description": "Connecteur Facebook",
+      "long_description": "Ce connecteur récupère les albums photos que vous avez publiés sur facebook.",
+      "permissions": {
+        "books": {
+          "description": "Utilisé pour créer les albums ou sont sauvegardées les photos."
+        },
+        "files": {
+          "description": "Utilisé pour sauvegarder les photos."
+        },
+        "accounts": {
+          "description": "Utilisé pour obtenir les données du compte"
+        }
+      }
+    },
+    "en": {
+      "short_description": "Connector Facebook",
+      "long_description": "This connector retrieves your facebook pictures albums.",
+      "permissions": {
+        "albums": {
+          "description": "Required to create the albums where the photo will be saved",
+          "type": "io.cozy.photos.albums"
+        },
+        "accounts": {
+          "description": "Required to get the account's data",
+          "type": "io.cozy.accounts"
+        },
+        "files": {
+          "description": "Required to save images",
+          "type": "io.cozy.files"
+        }
+      }
+    }
+  },
+  "langs": ["fr", "en"],
+  "developer": {
+    "name": "Cozy",
+    "url": "https://cozy.io"
+  }
+}
