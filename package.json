@@ -24,7 +24,7 @@
     "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --build-commit $(git rev-parse ${DEPLOY_BRANCH:-build})"
   },
   "dependencies": {
-    "cozy-konnector-libs": "4.1.8",
+    "cozy-konnector-libs": "4.1.9",
     "fb": "^2.0.0"
   },
   "devDependencies": {
