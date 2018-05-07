@@ -10,8 +10,10 @@
   "vendor_link": "https://facebook.com",
   "categories": ["other"],
   "data_types": ["pictures"],
-  "oauth": true,
-  "oauth_scope": "user_photos",
+  "oauth": {
+    "account_type": "facebook",
+    "scope": "user_photos"
+  },
   "fields": {
     "advancedFields": {
       "folderPath": {

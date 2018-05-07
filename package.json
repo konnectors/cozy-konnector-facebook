@@ -7,17 +7,9 @@
     "url": "git+https://github.com/konnectors/cozy-konnector-facebook.git"
   },
   "keywords": [],
-  "author": "Cozy Cloud",
+  "author": "",
   "license": "AGPL-3.0",
   "main": "./src/index.js",
-  "eslintConfig": {
-    "extends": [
-      "eslint-config-cozy-app"
-    ]
-  },
-  "eslintIgnore": [
-    "build"
-  ],
   "scripts": {
     "start": "node ./src/index.js",
     "token": "node ./facebookHelper.js",
@@ -50,6 +42,14 @@
     "konitor": "0.8.2",
     "minimist": "1.2.0",
     "webpack": "4.6.0",
-    "webpack-cli": "2.1.2"
-  }
+    "webpack-cli": "2.0.15"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-cozy-app"
+    ]
+  },
+  "eslintIgnore": [
+    "build"
+  ]
 }
