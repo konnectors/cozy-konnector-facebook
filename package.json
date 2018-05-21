@@ -1,43 +1,15 @@
 {
   "name": "cozy-konnector-facebook",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/konnectors/cozy-konnector-facebook.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cozy Cloud",
   "license": "AGPL-3.0",
   "main": "./src/index.js",
-  "scripts": {
-    "start": "node ./src/index.js",
-    "token": "node ./facebookHelper.js",
-    "dev": "cozy-run-dev",
-    "standalone": "cozy-run-standalone",
-    "build": "webpack",
-    "precommit": "yarn lint",
-    "lint": "eslint --fix .",
-    "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/konnectors/cozy-konnector-facebook.git}"
-  },
-  "dependencies": {
-    "cozy-konnector-libs": "3.7.4",
-    "fb": "^2.0.0"
-  },
-  "devDependencies": {
-    "chalk": "2.3.2",
-    "clear": "0.1.0",
-    "configstore": "3.1.2",
-    "copy-webpack-plugin": "4.5.1",
-    "cozy-jobs-cli": "1.0.7",
-    "eslint-config-cozy-app": "0.5.1",
-    "figlet": "1.2.0",
-    "git-directory-deploy": "1.5.1",
-    "husky": "0.14.3",
-    "minimist": "1.2.0",
-    "webpack": "4.3.0",
-    "webpack-cli": "2.0.13"
-  },
   "eslintConfig": {
     "extends": [
       "eslint-config-cozy-app"
@@ -45,5 +17,40 @@
   },
   "eslintIgnore": [
     "build"
-  ]
+  ],
+  "scripts": {
+    "start": "node ./src/index.js",
+    "token": "node ./facebookHelper.js",
+    "dev": "cozy-run-dev",
+    "standalone": "cozy-run-standalone",
+    "test": "konitor testit .",
+    "check": "konitor check .",
+    "build": "webpack",
+    "precommit": "yarn lint",
+    "lint": "eslint --fix .",
+    "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/konnectors/cozy-konnector-facebook.git}",
+    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --build-commit $(git rev-parse ${DEPLOY_BRANCH:-build})",
+    "travisDeployKey": "./bin/generate_travis_deploy_key"
+  },
+  "dependencies": {
+    "cozy-konnector-libs": "4.2.0",
+    "fb": "2.0.0"
+  },
+  "devDependencies": {
+    "chalk": "2.4.1",
+    "clear": "0.1.0",
+    "configstore": "3.1.2",
+    "copy-webpack-plugin": "4.5.1",
+    "cozy-app-publish": "0.3.6",
+    "cozy-jobs-cli": "1.1.0",
+    "eslint": "4.19.1",
+    "eslint-config-cozy-app": "0.7.3",
+    "figlet": "1.2.0",
+    "git-directory-deploy": "1.5.1",
+    "husky": "0.14.3",
+    "konitor": "0.8.3",
+    "minimist": "1.2.0",
+    "webpack": "4.8.3",
+    "webpack-cli": "2.1.3"
+  }
 }
