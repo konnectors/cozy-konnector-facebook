@@ -2125,7 +2125,7 @@ cozy-client-js@^0.9.0:
   dependencies:
     core-js "^2.5.3"
     pouchdb "6.1.1"
-    pouchdb-adapter-cordova-sqlite "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
+    pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
 cozy-jobs-cli@1.1.0:
@@ -3148,7 +3148,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fb@^2.0.0:
+fb@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fb/-/fb-2.0.0.tgz#91fd40325da34ec41c68b25530fc3a3e0dacfa6a"
   dependencies:
@@ -6374,7 +6374,6 @@ posix-character-classes@^0.1.0:
 
 "pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
-  uid f3ee23009b70209c611435d57491aa77fb88802a
   resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
   dependencies:
     pouchdb-adapter-websql-core "^6.1.1"

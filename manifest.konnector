@@ -3,17 +3,12 @@
   "name": "Facebook",
   "type": "konnector",
   "language": "node",
-  "slug": "facebook",
   "icon": "icon.svg",
+  "slug": "facebook",
   "source": "git://github.com/konnectors/cozy-konnector-facebook.git",
   "editor": "Cozy",
   "vendor_link": "https://facebook.com",
   "categories": ["other"],
-  "data_types": ["pictures"],
-  "oauth": {
-    "account_type": "facebook",
-    "scope": "user_photos"
-  },
   "fields": {
     "advancedFields": {
       "folderPath": {
@@ -21,6 +16,13 @@
         "isRequired": false
       }
     }
+  },
+  "data_types": [
+    "pictures"
+  ],
+  "oauth": {
+    "account_type": "facebook",
+    "scope": "user_photos"
   },
   "permissions": {
     "albums": {
@@ -33,6 +35,11 @@
       "type": "io.cozy.files"
     }
   },
+  "developer": {
+    "name": "Cozy Cloud",
+    "url": "https://cozy.io"
+  },
+  "langs": ["fr", "en"],
   "locales": {
     "fr": {
       "short_description": "Connecteur Facebook",
@@ -67,10 +74,5 @@
         }
       }
     }
-  },
-  "langs": ["fr", "en"],
-  "developer": {
-    "name": "Cozy",
-    "url": "https://cozy.io"
   }
 }

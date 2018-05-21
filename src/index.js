@@ -53,7 +53,10 @@ async function fetchOneAlbum({ id, name }, context, fields) {
   // save the files to the cozy
   const albumName = await normalizeFilename(`Facebook ${name}`)
   const albumFolder = await mkdirp(fields.folderPath, albumName)
-  const picturesDocs = await saveFiles(picturesObjects, albumFolder.attributes.path)
+  const picturesDocs = await saveFiles(
+    picturesObjects,
+    albumFolder.attributes.path
+  )
   const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
 
   // create the album if needed or fetch the correponding existing album
