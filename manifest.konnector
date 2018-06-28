@@ -8,7 +8,7 @@
   "source": "git://github.com/konnectors/cozy-konnector-facebook.git",
   "editor": "Cozy",
   "vendor_link": "https://facebook.com",
-  "categories": ["other"],
+  "categories": ["online_services"],
   "fields": {
     "advancedFields": {
       "folderPath": {
