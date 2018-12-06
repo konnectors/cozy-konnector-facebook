@@ -9,14 +9,11 @@
   "editor": "Cozy",
   "vendor_link": "https://facebook.com",
   "categories": ["online_services"],
-  "fields": {
-    "advancedFields": {
-      "folderPath": {
-        "advanced": true,
-        "isRequired": false
-      }
+  "folders": [
+    {
+      "defaultDir": "$photos"
     }
-  },
+  ],
   "data_types": [
     "pictures"
   ],
