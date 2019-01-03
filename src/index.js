@@ -61,7 +61,7 @@ async function fetchOneAlbum({ id, name }, context, fields) {
 
   // create the album if needed or fetch the correponding existing album
   const [albumDoc] = await updateOrCreate(
-    [{ name: albumName }],
+    [{ name: albumName, created_at: new Date() }],
     'io.cozy.photos.albums',
     ['name']
   )
