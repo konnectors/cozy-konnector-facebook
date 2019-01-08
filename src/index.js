@@ -37,6 +37,8 @@ async function start(fields) {
       err.response.error.code === 2500
     ) {
       log('error', 'Access token expired. You should renew your access token')
+    } else {
+      throw err
     }
   }
 }
@@ -55,9 +57,14 @@ async function fetchOneAlbum({ id, name }, context, fields) {
   const albumFolder = await mkdirp(fields.folderPath, albumName)
   const picturesDocs = await saveFiles(
     picturesObjects,
-    albumFolder.attributes.path
+    albumFolder.attributes.path,
+    {
+      concurrency: 8
+    }
   )
-  const picturesIds = picturesDocs.map(doc => doc.fileDocument._id)
+  const picturesIds = picturesDocs
+    .filter(doc => doc && doc.fileDocument)
+    .map(doc => doc.fileDocument._id)
 
   // create the album if needed or fetch the correponding existing album
   const [albumDoc] = await updateOrCreate(
