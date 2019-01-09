@@ -10,6 +10,7 @@ const mkdirp = require('./mkdirp')
 const fb = require('fb')
 const format = require('date-fns/format')
 const url = require('url')
+const URL = url.URL
 const path = require('path')
 
 process.env.SENTRY_DSN =
@@ -51,7 +52,7 @@ async function start(fields) {
 
 async function fetchMeName(context) {
   log('info', `Fetching "me"`)
-  const parsed = new url.URL('/me', 'https://graph.facebook.com')
+  const parsed = new URL('/me', 'https://graph.facebook.com')
   const result = await fb.api(parsed.pathname + parsed.search, context)
   return result.name
 }
