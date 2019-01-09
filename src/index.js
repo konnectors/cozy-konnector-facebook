@@ -65,15 +65,20 @@ async function fetchOneAlbum(
 ) {
   log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging(
-    `/${id}/photos?fields=images,backdated_time`,
+    `/${id}/photos?fields=images,backdated_time,created_time`,
     context
   )).map(photo => {
     const fileurl = photo.images[0].source
     const extension = path.extname(url.parse(fileurl).pathname)
-    const filename = `${format(photo.backdated_time, 'YYYY_MM_DD')}_${
-      photo.id
-    }${extension}`
-    return { fileurl, filename }
+    const time = new Date(photo.backdated_time || photo.created_time)
+    const filename = `${format(time, 'YYYY_MM_DD')}_${photo.id}${extension}`
+    return {
+      fileurl,
+      filename,
+      fileAttributes: {
+        created_at: new Date(time)
+      }
+    }
   })
 
   // save the files to the cozy
