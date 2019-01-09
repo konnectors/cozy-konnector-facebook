@@ -8,7 +8,9 @@ const {
 } = require('cozy-konnector-libs')
 const mkdirp = require('./mkdirp')
 const fb = require('fb')
-const { URL } = require('url')
+const format = require('date-fns/format')
+const url = require('url')
+const path = require('path')
 
 process.env.SENTRY_DSN =
   process.env.SENTRY_DSN ||
@@ -24,10 +26,14 @@ async function start(fields) {
   try {
     const { access_token } = fields
     const context = { access_token }
+    const me = await fetchMeName(context)
+    const folderName = await normalizeFilename(me)
+    const folder = await mkdirp(fields.folderPath, folderName)
     log('info', 'getting the list of albums')
     const albums = await fetchListWithPaging('/me/albums', context)
     log('info', `Got ${albums.length} albums`)
-    for (const album of albums) await fetchOneAlbum(album, context, fields)
+    for (const album of albums)
+      await fetchOneAlbum(album, context, fields, folder)
   } catch (err) {
     log('error', err.message)
     if (
@@ -43,23 +49,40 @@ async function start(fields) {
   }
 }
 
-async function fetchOneAlbum({ id, name }, context, fields) {
+async function fetchMeName(context) {
+  log('info', `Fetching "me"`)
+  const parsed = new url.URL('/me', 'https://graph.facebook.com')
+  const result = await fb.api(parsed.pathname + parsed.search, context)
+  return result.name
+}
+
+async function fetchOneAlbum(
+  { id, name, created_time },
+  context,
+  fields,
+  folder
+) {
   log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging(
-    `/${id}/photos?fields=images`,
+    `/${id}/photos?fields=images,backdated_time`,
     context
   )).map(photo => {
-    return { fileurl: photo.images[0].source }
+    const fileurl = photo.images[0].source
+    const extension = path.extname(url.parse(fileurl).pathname)
+    const filename = `${format(photo.backdated_time, 'YYYY_MM_DD')}_${
+      photo.id
+    }${extension}`
+    return { fileurl, filename }
   })
 
   // save the files to the cozy
   const albumName = await normalizeFilename(`Facebook ${name}`)
-  const albumFolder = await mkdirp(fields.folderPath, albumName)
   const picturesDocs = await saveFiles(
     picturesObjects,
-    albumFolder.attributes.path,
+    folder.attributes.path,
     {
-      concurrency: 8
+      concurrency: 16
+      // timeout: Date.now() + 1 * 10 * 1000
     }
   )
   const picturesIds = picturesDocs
@@ -68,7 +91,7 @@ async function fetchOneAlbum({ id, name }, context, fields) {
 
   // create the album if needed or fetch the correponding existing album
   const [albumDoc] = await updateOrCreate(
-    [{ name: albumName, created_at: new Date() }],
+    [{ name: albumName, created_at: created_time }],
     'io.cozy.photos.albums',
     ['name']
   )
