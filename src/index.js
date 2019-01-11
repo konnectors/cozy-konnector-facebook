@@ -76,7 +76,7 @@ async function fetchOneAlbum(
       fileurl,
       filename,
       fileAttributes: {
-        created_at: new Date(time)
+        lastModifiedDate: time
       }
     }
   })
@@ -87,8 +87,8 @@ async function fetchOneAlbum(
     picturesObjects,
     folder.attributes.path,
     {
-      concurrency: 16
-      // timeout: Date.now() + 1 * 10 * 1000
+      concurrency: 16,
+      contentType: 'image/jpeg' // need this to force the stack to take our date into account
     }
   )
   const picturesIds = picturesDocs
