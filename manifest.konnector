@@ -26,12 +26,6 @@
   "permissions": {
     "albums": {
       "type": "io.cozy.photos.albums"
-    },
-    "accounts": {
-      "type": "io.cozy.accounts"
-    },
-    "files": {
-      "type": "io.cozy.files"
     }
   },
   "developer": {
@@ -49,12 +43,6 @@
       "permissions": {
         "books": {
           "description": "Utilisé pour créer les albums ou sont sauvegardées les photos."
-        },
-        "files": {
-          "description": "Utilisé pour sauvegarder les photos."
-        },
-        "accounts": {
-          "description": "Utilisé pour obtenir les données du compte"
         }
       }
     },
@@ -65,14 +53,6 @@
         "albums": {
           "description": "Required to create the albums where the photo will be saved",
           "type": "io.cozy.photos.albums"
-        },
-        "accounts": {
-          "description": "Required to get the account's data",
-          "type": "io.cozy.accounts"
-        },
-        "files": {
-          "description": "Required to save images",
-          "type": "io.cozy.files"
         }
       }
     }
