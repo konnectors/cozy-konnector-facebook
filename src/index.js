@@ -65,7 +65,7 @@ async function fetchOneAlbum(
 ) {
   log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging(
-    `/${id}/photos?fields=images,backdated_time,created_time`,
+    `/${id}/photos?fields=images,backdated_time,created_time,place,tags`,
     context
   )).map(photo => {
     const fileurl = photo.images[0].source
