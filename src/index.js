@@ -6,7 +6,6 @@ const {
   normalizeFilename,
   log
 } = require('cozy-konnector-libs')
-const mkdirp = require('./mkdirp')
 const fb = require('fb')
 const format = require('date-fns/format')
 const url = require('url')
@@ -27,14 +26,17 @@ async function start(fields) {
   try {
     const { access_token } = fields
     const context = { access_token }
-    const me = await fetchMeName(context)
-    const folderName = await normalizeFilename(me)
-    const folder = await mkdirp(fields.folderPath, folderName)
+
+    this._account = await ensureAccountNameAndFolder(
+      this._account,
+      fields,
+      context
+    )
+
     log('info', 'getting the list of albums')
     const albums = await fetchListWithPaging('/me/albums', context)
     log('info', `Got ${albums.length} albums`)
-    for (const album of albums)
-      await fetchOneAlbum(album, context, fields, folder)
+    for (const album of albums) await fetchOneAlbum(album, context, fields)
   } catch (err) {
     log('error', err.message)
     if (
@@ -50,6 +52,41 @@ async function start(fields) {
   }
 }
 
+async function ensureAccountNameAndFolder(account, fields, context) {
+  const firstRun = !account || !account.label
+
+  if (!firstRun) return
+
+  log('info', `This is the first run, getting facebook account name`)
+  const label = await normalizeFilename(await fetchMeName(context))
+
+  log('info', `Renaming the folder to ${label}`)
+  const newFolder = await cozyClient.files.updateAttributesByPath(
+    fields.folderPath,
+    {
+      name: label
+    }
+  )
+
+  fields.folderPath = newFolder.attributes.path
+
+  log('info', `Updating the label of the account`)
+  const newAccount = await cozyClient.data.updateAttributes(
+    'io.cozy.accounts',
+    account._id,
+    {
+      label,
+      auth: {
+        accountName: label,
+        folderPath: fields.folderPath,
+        namePath: label
+      }
+    }
+  )
+
+  return newAccount
+}
+
 async function fetchMeName(context) {
   log('info', `Fetching "me"`)
   const parsed = new URL('/me', 'https://graph.facebook.com')
@@ -57,12 +94,7 @@ async function fetchMeName(context) {
   return result.name
 }
 
-async function fetchOneAlbum(
-  { id, name, created_time },
-  context,
-  fields,
-  folder
-) {
+async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging(
     `/${id}/photos?fields=images,backdated_time,created_time,place,tags`,
@@ -83,14 +115,10 @@ async function fetchOneAlbum(
 
   // save the files to the cozy
   const albumName = await normalizeFilename(`Facebook ${name}`)
-  const picturesDocs = await saveFiles(
-    picturesObjects,
-    folder.attributes.path,
-    {
-      concurrency: 16,
-      contentType: 'image/jpeg' // need this to force the stack to take our date into account
-    }
-  )
+  const picturesDocs = await saveFiles(picturesObjects, fields, {
+    concurrency: 16,
+    contentType: 'image/jpeg' // need this to force the stack to take our date into account
+  })
   const picturesIds = picturesDocs
     .filter(doc => doc && doc.fileDocument)
     .map(doc => doc.fileDocument._id)
