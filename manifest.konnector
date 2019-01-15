@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.1.0",
   "name": "Facebook",
   "type": "konnector",
   "language": "node",
@@ -44,8 +44,8 @@
   ],
   "locales": {
     "fr": {
-      "short_description": "Connecteur Facebook",
-      "long_description": "Ce connecteur récupère les albums photos que vous avez publiés sur facebook.",
+      "short_description": "Récupère vos photos facebook",
+      "long_description": "Ce service récupère vos photos facebook et les sauvegarde dans votre cozy.<br>Vous pourrez retrouver vos photos dans l'application Cozy Photos, classées dans des albums correspondant à vos albums facebook.",
       "permissions": {
         "books": {
           "description": "Utilisé pour créer les albums ou sont sauvegardées les photos."
@@ -59,8 +59,8 @@
       }
     },
     "en": {
-      "short_description": "Connector Facebook",
-      "long_description": "This connector retrieves your facebook pictures albums.",
+      "short_description": "Fetch you facebook photos",
+      "long_description": "This service fetches your facebook photos and saves them in your cozy.<br>You will find your pictures in the Cozy Photos application, sorted in albums corresponding to your facebook albums.",
       "permissions": {
         "albums": {
           "description": "Required to create the albums where the photo will be saved",
