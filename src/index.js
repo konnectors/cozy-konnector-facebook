@@ -57,34 +57,40 @@ async function ensureAccountNameAndFolder(account, fields, context) {
 
   if (!firstRun) return
 
-  log('info', `This is the first run, getting facebook account name`)
-  const label = await normalizeFilename(await fetchMeName(context))
+  try {
+    log('info', `This is the first run, getting facebook account name`)
+    const label = await normalizeFilename(await fetchMeName(context))
 
-  log('info', `Renaming the folder to ${label}`)
-  const newFolder = await cozyClient.files.updateAttributesByPath(
-    fields.folderPath,
-    {
-      name: label
-    }
-  )
-
-  fields.folderPath = newFolder.attributes.path
-
-  log('info', `Updating the label of the account`)
-  const newAccount = await cozyClient.data.updateAttributes(
-    'io.cozy.accounts',
-    account._id,
-    {
-      label,
-      auth: {
-        accountName: label,
-        folderPath: fields.folderPath,
-        namePath: label
+    log('info', `Renaming the folder to ${label}`)
+    const newFolder = await cozyClient.files.updateAttributesByPath(
+      fields.folderPath,
+      {
+        name: label
       }
-    }
-  )
+    )
 
-  return newAccount
+    fields.folderPath = newFolder.attributes.path
+
+    log('info', `Updating the label of the account`)
+    const newAccount = await cozyClient.data.updateAttributes(
+      'io.cozy.accounts',
+      account._id,
+      {
+        label,
+        auth: {
+          accountName: label,
+          folderPath: fields.folderPath,
+          namePath: label
+        }
+      }
+    )
+    return newAccount
+  } catch (err) {
+    log(
+      'warn',
+      `Error while trying to update folder path or account name: ${err.message}`
+    )
+  }
 }
 
 async function fetchMeName(context) {
