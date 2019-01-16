@@ -152,8 +152,12 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
     ['name']
   )
 
-  const referencedFileIds = await cozyClient.data.listReferencedFiles(albumDoc)
+  log('info', `${picturesIds.length} files proposed to add to ${albumName}`)
+  const referencedFileIds = await listAllReferencedFiles(albumDoc)
+
+  log('info', `${referencedFileIds.length} files referenced in ${albumName}`)
   const newFileIds = picturesIds.filter(id => !referencedFileIds.includes(id))
+  log('info', `${newFileIds.length} files added to ${albumName}`)
   await cozyClient.data.addReferencedFiles(albumDoc, newFileIds)
 }
 
@@ -167,4 +171,23 @@ async function fetchListWithPaging(url, context) {
     results = results.concat(data)
   }
   return results
+}
+
+async function listAllReferencedFiles(doc) {
+  let list = []
+  let result = {
+    links: {
+      next: `/data/${encodeURIComponent(doc._type)}/${
+        doc._id
+      }/relationships/references`
+    }
+  }
+  while (result.links.next) {
+    result = await cozyClient.fetchJSON('GET', result.links.next, null, {
+      processJSONAPI: false
+    })
+    list = list.concat(result.data)
+  }
+
+  return list.map(doc => doc.id)
 }
