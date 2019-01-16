@@ -121,10 +121,13 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
 
   // save the files to the cozy
   const albumName = await normalizeFilename(`Facebook ${name}`)
-  const picturesDocs = await saveFiles(picturesObjects, fields, {
-    concurrency: 16,
-    contentType: 'image/jpeg' // need this to force the stack to take our date into account
-  })
+  let picturesDocs = []
+  if (picturesObjects.length) {
+    picturesDocs = await saveFiles(picturesObjects, fields, {
+      concurrency: 16,
+      contentType: 'image/jpeg' // need this to force the stack to take our date into account
+    })
+  }
   const picturesIds = picturesDocs
     .filter(doc => doc && doc.fileDocument)
     .map(doc => doc.fileDocument._id)
