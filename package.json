@@ -20,7 +20,6 @@
   ],
   "scripts": {
     "start": "node ./src/index.js",
-    "token": "node ./facebookHelper.js",
     "dev": "cozy-run-dev",
     "standalone": "cozy-run-standalone",
     "pretest": "npm run clean",
