@@ -3,8 +3,6 @@ node_js:
 - '8'
 env:
   global:
-  - GH_USER_EMAIL="travis@example.org"
-  - GH_USER_NAME="cozy-bot"
   - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-facebook.git"
   - secure: bOkETXUMmrh/wbeB+F+asedATdYxgaabMwFRL3dOe3U2vTyYMm9CS8Kc96YshjpU43lU3qMhFEben8dAPamUT3eDLHQxo1zv8vSFmsVmSk6iZqjO0D5r/9qgVnMcFAHX47ay+PX9nLiGzZAQg89u+xHFstDfbC48AV4Evj0t7Qsn+TF6qWltYXHVzIdaAxVw0y7c5akODIK6DoSvCbY1BNHAGKMW4KUYCuAlQRn5+qpA3dC+6vne7VFsEq2RA2lDKfzhhivPLnjy5tnGt0KuIsfQ+X5rZT0Jkg+KPFsWOJCj608LOBwnFjI7jDq1OtwhFKCfNIt3gSxwJzkCnDCLlInA02+Y09w1zIIs42zdaT7VRVt4Svs2+xe12WJ94nWah7pTxPf4sNCqXhxa3NQ53meEGYU7nKAa8tcy2qIRy96WECrCqRQGWlnKGCaZ82JMwqy79F+/bWOYpDZSowXVamm4yZeT1nvd9T911xCnAIhv2UlvxFNKVkZrNjoxHA2L4f1Q/MNWqM75eqrNdmiCBZY1iJyw1lV+Yd7jKZ2VdHv3WxEUyBk0vLsMCvpmra9kYef02IUQ82Ctjy7i8SAT5b8vNm4zMQbFBwfPELARjGiJUyO7Vrz6n11Ohj2e9EmYT0UfrBrsGWTaWMytU0Jzgpma+0MSqB+ijIZ4+AwWHYs=
 cache:
@@ -14,7 +12,7 @@ cache:
 branches:
   except:
   - build
-  - latest
+  - build-debug
 script:
 - yarn lint
 - yarn build
