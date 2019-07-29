@@ -82,7 +82,7 @@ async function ensureAccountNameAndFolder(account, fields, context) {
       }
     )
 
-    fields.folderPath = newFolder.attributes.path
+    fields.folderPath = newFolder.attributes.path // eslint-disable-line require-atomic-updates
 
     log('info', `Updating the folder path in the account`)
     newAccount = await cozyClient.data.updateAttributes(
@@ -137,7 +137,7 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   let picturesDocs = []
   if (picturesObjects.length) {
     picturesDocs = await saveFiles(picturesObjects, fields, {
-      concurrency: 16,
+      concurrency: 8,
       contentType: 'image/jpeg' // need this to force the stack to take our date into account
     })
   }
