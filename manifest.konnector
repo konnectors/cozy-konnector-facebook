@@ -13,7 +13,7 @@
   ],
   "folders": [
     {
-      "defaultDir": "$photos"
+      "defaultDir": "$photos/$konnector/$account"
     }
   ],
   "data_types": [
