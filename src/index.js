@@ -8,7 +8,8 @@ const {
   updateOrCreate,
   cozyClient,
   normalizeFilename,
-  log
+  log,
+  errors
 } = require('cozy-konnector-libs')
 const fb = require('fb')
 const format = require('date-fns/format')
@@ -34,9 +35,10 @@ async function start(fields) {
     )
 
     log('info', 'getting the list of albums')
-    const albums = await fetchListWithPaging('/me/albums', context)
+    const albums = await fetchListWithPaging.bind(this)('/me/albums', context)
     log('info', `Got ${albums.length} albums`)
-    for (const album of albums) await fetchOneAlbum(album, context, fields)
+    for (const album of albums)
+      await fetchOneAlbum.bind(this)(album, context, fields)
   } catch (err) {
     log('error', err.message)
     if (
@@ -55,7 +57,7 @@ async function start(fields) {
 async function ensureAccountNameAndFolder(account, fields, context) {
   const firstRun = !account || !account.label
 
-  if (!firstRun) return
+  if (!firstRun) return account
 
   try {
     log('info', `This is the first run, getting facebook account name`)
@@ -115,7 +117,7 @@ async function fetchMeName(context) {
 
 async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   log('info', `Fetching album "${name}"`)
-  const picturesObjects = (await fetchListWithPaging(
+  const picturesObjects = (await fetchListWithPaging.bind(this)(
     `/${id}/photos?fields=images,backdated_time,created_time,place,tags`,
     context
   )).map(photo => {
@@ -163,12 +165,34 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
 
 async function fetchListWithPaging(url, context) {
   let results = []
+  let refreshNb = 0
   while (url) {
-    const parsed = new URL(url, 'https://graph.facebook.com')
-    const x = await fb.api(parsed.pathname + parsed.search, context)
-    const { data, paging } = x
-    url = paging && paging.next
-    results = results.concat(data)
+    try {
+      const parsed = new URL(url, 'https://graph.facebook.com')
+      const x = await fb.api(parsed.pathname + parsed.search, context)
+      const { data, paging } = x
+      url = paging && paging.next
+      results = results.concat(data)
+    } catch (err) {
+      log('warn', 'error while requesting facebook:')
+      log('warn', err.message)
+      if (refreshNb === 0) {
+        try {
+          log('info', 'refreshing the access_token')
+          refreshNb++
+          const body = await cozyClient.fetchJSON(
+            'POST',
+            `/accounts/facebook/${this._account._id}/refresh`
+          )
+          context.access_token = body.attributes.oauth.access_token // eslint-disable-line require-atomic-updates
+        } catch (err) {
+          log('info', `Error during refresh ${err.message}`)
+          throw errors.USER_ACTION_NEEDED_OAUTH_OUTDATED
+        }
+      } else {
+        throw err
+      }
+    }
   }
   return results
 }
