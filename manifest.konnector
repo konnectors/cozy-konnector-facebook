@@ -45,7 +45,7 @@
   "locales": {
     "fr": {
       "short_description": "Récupère vos photos facebook",
-      "long_description": "Ce service récupère vos photos facebook et les sauvegarde dans votre cozy.<br>Vous pourrez retrouver vos photos dans l'application Cozy Photos, classées dans des albums correspondant à vos albums facebook.",
+      "long_description": "Ce service récupère vos photos facebook et les sauvegarde dans votre cozy.<br>Vous pourrez retrouver vos photos dans l'application Cozy Photos, classées dans des albums correspondant à vos albums facebook.<br>Attention, ce connecteur n'est pas compatible avec l'extension pour firefox [Facebook container](https://addons.mozilla.org/fr/firefox/addon/facebook-container/) ou équivalent.",
       "permissions": {
         "books": {
           "description": "Utilisé pour créer les albums ou sont sauvegardées les photos."
@@ -60,7 +60,7 @@
     },
     "en": {
       "short_description": "Fetch you facebook photos",
-      "long_description": "This service fetches your facebook photos and saves them in your cozy.<br>You will find your pictures in the Cozy Photos application, sorted in albums corresponding to your facebook albums.",
+      "long_description": "This service fetches your facebook photos and saves them in your cozy.<br>You will find your pictures in the Cozy Photos application, sorted in albums corresponding to your facebook albums.<br>Be carefull, this does not work with [Facebook container](https://addons.mozilla.org/fr/firefox/addon/facebook-container/) firefox extension or equivalent.",
       "permissions": {
         "albums": {
           "description": "Required to create the albums where the photo will be saved",
