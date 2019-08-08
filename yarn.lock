@@ -1268,23 +1268,6 @@ cozy-client-js@0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@6.55.0:
-  version "6.55.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.55.0.tgz#ffc4277103e0a0a304cc68d0bed7347c00dabb64"
-  integrity sha512-N/loJqXGw0V0YvV++tPrJCw2Q4u+2Zga1dMp25+g/Oh85gOWa6v2WFo1izPH3FGf2rfetoWziv8gWz/jzjeUeA==
-  dependencies:
-    cozy-device-helper "1.7.3"
-    cozy-stack-client "^6.55.0"
-    lodash "4.17.14"
-    microee "0.0.6"
-    prop-types "15.6.2"
-    react "16.7.0"
-    react-redux "5.0.7"
-    redux "3.7.2"
-    redux-thunk "2.3.0"
-    sift "6.0.0"
-    url-search-params-polyfill "^6.0.0"
-
 cozy-client@6.55.1:
   version "6.55.1"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.55.1.tgz#4f07d1bc71de086e7c6761c27be31bf093dbc939"
@@ -1292,6 +1275,22 @@ cozy-client@6.55.1:
   dependencies:
     cozy-device-helper "1.7.3"
     cozy-stack-client "^6.55.0"
+    lodash "4.17.14"
+    microee "0.0.6"
+    prop-types "15.6.2"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    redux-thunk "2.3.0"
+    sift "6.0.0"
+    url-search-params-polyfill "^6.0.0"
+
+cozy-client@6.57.0:
+  version "6.57.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.57.0.tgz#96b72ab00ce28c1bfe0e5fcf8ff32d78dbb1dbb9"
+  integrity sha512-QF+TJ9sp6RrIURFB9yJMP4b6ifX+7qapfy/Hlj+ThZJAQoLIoe3DaGri2MBYNqbkSYXvUlmG50HFa1NC3/5OZA==
+  dependencies:
+    cozy-device-helper "1.7.3"
+    cozy-stack-client "^6.57.0"
     lodash "4.17.14"
     microee "0.0.6"
     prop-types "15.6.2"
@@ -1378,6 +1377,15 @@ cozy-stack-client@^6.55.0:
   version "6.55.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.55.0.tgz#8d77e377a6515180b19d5386078845f9ddd7609a"
   integrity sha512-Ho611ECKLSROrmQ+gLetniU9C5nYP0vIjfMzhRGDWdHkDVrhM19dTjyNoSj9uNd64SrdNs182f8pi183g7TOfQ==
+  dependencies:
+    detect-node "2.0.4"
+    mime "2.4.0"
+    qs "6.7.0"
+
+cozy-stack-client@^6.57.0:
+  version "6.57.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.57.0.tgz#dc14a795ae403247e232c60d143ab199a123ff18"
+  integrity sha512-mFELDIAd6Yb11inB0ZjBVd8xCQy1euPWf6qHi5A9qs2HMFmK4fkQgIQq2brZOqxfaCmBq/I1jP3OppKcM83K+A==
   dependencies:
     detect-node "2.0.4"
     mime "2.4.0"
@@ -4849,16 +4857,6 @@ react-redux@5.0.7:
     loose-envify "^1.1.0"
     prop-types "^15.6.0"
 
-react@16.7.0:
-  version "16.7.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.7.0.tgz#b674ec396b0a5715873b350446f7ea0802ab6381"
-  integrity sha512-StCz3QY8lxTb5cl2HJxjwLFOXPIFQp+p+hxQfc8WE0QiLfCtIlKj8/+5tjjKm8uSTlAW+fCPaavGFS06V9Ar3A==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.12.0"
-
 read-pkg@^5.1.1:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
@@ -5160,14 +5158,6 @@ sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scheduler@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.12.0.tgz#8ab17699939c0aedc5a196a657743c496538647b"
-  integrity sha512-t7MBR28Akcp4Jm+QoR63XgAi9YgCUmgvDHqf5otgAj4QvdoBE4ImCX0ffehefePPG+aitiYHp0g/mW6s4Tp+dw==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 schema-utils@^0.4.0:
   version "0.4.7"
@@ -6118,10 +6108,10 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@4.39.0:
-  version "4.39.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.39.0.tgz#1d511308c3dd8f9fe3152c9447ce30f1814a620c"
-  integrity sha512-nrxFNSEKm4T1C/EsgOgN50skt//Pl4X7kgJC1MrlE47M292LSCVmMOC47iTGL0CGxbdwhKGgeThrJcw0bstEfA==
+webpack@4.39.1:
+  version "4.39.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.39.1.tgz#60ed9fb2b72cd60f26ea526c404d2a4cc97a1bd8"
+  integrity sha512-/LAb2TJ2z+eVwisldp3dqTEoNhzp/TLCZlmZm3GGGAlnfIWDgOEE758j/9atklNLfRyhKbZTCOIoPqLJXeBLbQ==
   dependencies:
     "@webassemblyjs/ast" "1.8.5"
     "@webassemblyjs/helper-module-context" "1.8.5"
