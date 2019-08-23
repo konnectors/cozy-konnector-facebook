@@ -140,7 +140,9 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   if (picturesObjects.length) {
     picturesDocs = await saveFiles(picturesObjects, fields, {
       concurrency: 8,
-      contentType: 'image/jpeg' // need this to force the stack to take our date into account
+      contentType: 'image/jpeg', // need this to force the stack to take our date into account
+      sourceAccount: this.accountId,
+      sourceAccountIdentifier: this._account.auth.accountName
     })
   }
   const picturesIds = picturesDocs
