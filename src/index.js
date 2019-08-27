@@ -118,16 +118,18 @@ async function fetchMeName(context) {
 async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   log('info', `Fetching album "${name}"`)
   const picturesObjects = (await fetchListWithPaging.bind(this)(
-    `/${id}/photos?fields=images,backdated_time,created_time,place,tags`,
+    `/${id}/photos?fields=id,images,backdated_time,created_time,place,tags`,
     context
   )).map(photo => {
     const fileurl = photo.images[0].source
     const extension = path.extname(url.parse(fileurl).pathname)
+    const facebook_id = photo.id
     const time = new Date(photo.backdated_time || photo.created_time)
     const filename = `${format(time, 'YYYY_MM_DD')}_${photo.id}${extension}`
     return {
       fileurl,
       filename,
+      facebook_id,
       fileAttributes: {
         lastModifiedDate: time
       }
@@ -142,7 +144,8 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
       concurrency: 8,
       contentType: 'image/jpeg', // need this to force the stack to take our date into account
       sourceAccount: this.accountId,
-      sourceAccountIdentifier: this._account.auth.accountName
+      sourceAccountIdentifier: this._account.label,
+      fileIdAttributes: ['facebook_id']
     })
   }
   const picturesIds = picturesDocs
