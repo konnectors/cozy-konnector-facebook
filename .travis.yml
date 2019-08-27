@@ -4,7 +4,10 @@ node_js:
 env:
   global:
   - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-facebook.git"
+  # REGISTRY_TOKEN(editor=cozy, app=facebook)
   - secure: bOkETXUMmrh/wbeB+F+asedATdYxgaabMwFRL3dOe3U2vTyYMm9CS8Kc96YshjpU43lU3qMhFEben8dAPamUT3eDLHQxo1zv8vSFmsVmSk6iZqjO0D5r/9qgVnMcFAHX47ay+PX9nLiGzZAQg89u+xHFstDfbC48AV4Evj0t7Qsn+TF6qWltYXHVzIdaAxVw0y7c5akODIK6DoSvCbY1BNHAGKMW4KUYCuAlQRn5+qpA3dC+6vne7VFsEq2RA2lDKfzhhivPLnjy5tnGt0KuIsfQ+X5rZT0Jkg+KPFsWOJCj608LOBwnFjI7jDq1OtwhFKCfNIt3gSxwJzkCnDCLlInA02+Y09w1zIIs42zdaT7VRVt4Svs2+xe12WJ94nWah7pTxPf4sNCqXhxa3NQ53meEGYU7nKAa8tcy2qIRy96WECrCqRQGWlnKGCaZ82JMwqy79F+/bWOYpDZSowXVamm4yZeT1nvd9T911xCnAIhv2UlvxFNKVkZrNjoxHA2L4f1Q/MNWqM75eqrNdmiCBZY1iJyw1lV+Yd7jKZ2VdHv3WxEUyBk0vLsMCvpmra9kYef02IUQ82Ctjy7i8SAT5b8vNm4zMQbFBwfPELARjGiJUyO7Vrz6n11Ohj2e9EmYT0UfrBrsGWTaWMytU0Jzgpma+0MSqB+ijIZ4+AwWHYs=
+  # MATTERMOST_HOOK_URL
+  - secure: kgkkrX1JUVG/qn1cSeJBuhqeiKGxp/WbX8hejIrXu89sSsUHMhO504QU/cCj5pRwnUoSptiAlk4abOUIjg+sbD02sDkJOJiOo6DwdAAfoVFEvaDqgwJPLuXkgvP/QFYNhjqAVmacNy1X1LCn7mPWo4smajy9QAWHNkTfXGqur1RmRF8M1fUFRp94Djx81PPuK87yR6UY4J0K/FxIxNZyZ53bcVQtqoOy/H9F84k1Xhr1KEojV3FVJv/xqCfN3Dv55RiNhPcSisTaiN5OQ9Lk/9CcRDyWhQB2rRFaA2S6bU7dlahBYyWHZxIyE71ZA6jHZmAPCa3L2yqkTwmytGgUUjIkLvkT59PS99lGLa+JwEhoME7l4C2pSDnFXVnkpcnG+5JQOMGK0kmuMsZq8Y62m1/3QhJeqMo0M+p/kiOFrx+dQut148NoS4gw5Qi0nTm1fkq83F5sBsjDdYFmTYTxGbP2gEseARd4EUzP1BQFgbNV4h+b9LqsOXYTgcLJcYQi++Ny9D062lb8HYuwI7H/Hz+h1D2jHKydSeEsxhJmHJtLyHybJ3U0UKPT6RijgkCz7GK/7D0u3cdxBzK2KZ1GkN3RT1zMb6DhEOtGv/GyYLvaUHNuSTRzSedfDCeP3Tt0w7u1wV7Q3jM8I30Ss8mHGVIvDvSgFPPsvDyBe6Um9uk=
 cache:
   yarn: true
   directories:
@@ -16,7 +19,6 @@ branches:
 script:
 - yarn lint
 - yarn build
-- yarn run check
 deploy:
 - provider: script
   skip-cleanup: true
@@ -25,7 +27,7 @@ deploy:
     branch: master
 - provider: script
   skip-cleanup: true
-  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
+  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish --postpublish mattermost
   on:
     tags: true
 before_install:
