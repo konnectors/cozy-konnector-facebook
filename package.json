@@ -55,7 +55,7 @@
     "figlet": "1.2.3",
     "git-directory-deploy": "1.5.1",
     "husky": "3.0.4",
-    "konitor": "0.10.2",
+    "konitor": "0.10.3",
     "minimist": "1.2.0",
     "svgo": "1.3.0",
     "webpack": "4.39.3",
