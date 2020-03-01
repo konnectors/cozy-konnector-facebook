@@ -1417,10 +1417,10 @@ cozy-client-js@0.16.4, cozy-client-js@^0.16.4:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@10.7.0:
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-10.7.0.tgz#0cc76491f79caba7dfaee87ab19908d0e1f315f2"
-  integrity sha512-U7z9zQeGO4Tft1PhS+d+zJtl/ZmZPyxC3bmDsSazR1B2kfJhMf/WsI3Exp2yYu2KeKmQ9FUYhVxdAnhtwK+ppg==
+cozy-client@10.9.0:
+  version "10.9.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-10.9.0.tgz#d907795d58f99af213ac521c4472bbb90d00ff0b"
+  integrity sha512-twf/JDCHYANVIQjXvkjueIJA9N98hFUU+hTQi52t0plxhE5gupJrgJaib4If09oav+K8/ciQ06xK7qqDMNGUlw==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
@@ -1429,7 +1429,7 @@ cozy-client@10.7.0:
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
-    opn "^6.0.0"
+    open "^7.0.2"
     prop-types "^15.6.2"
     react-redux "^5.0.7"
     redux "^3.7.2"
@@ -4329,13 +4329,6 @@ opencollective-postinstall@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
   integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
-
-opn@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-6.0.0.tgz#3c5b0db676d5f97da1233d1ed42d182bc5a27d2d"
-  integrity sha512-I9PKfIZC+e4RXZ/qr1RhgyCnGgYX0UEIlXgWnCOVACIvFgaC9rz6Won7xbdhoHrd8IIhV7YEpHjreNUNkqCGkQ==
-  dependencies:
-    is-wsl "^1.1.0"
 
 optionator@^0.8.2:
   version "0.8.3"
