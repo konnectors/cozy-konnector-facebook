@@ -9,14 +9,18 @@ const {
   cozyClient,
   normalizeFilename,
   log,
-  errors
+  errors,
+  requestFactory
 } = require('cozy-konnector-libs')
+const request = requestFactory({
+  cheerio: false,
+  json: true
+})
 const fb = require('fb')
 const format = require('date-fns/format')
 const url = require('url')
 const URL = url.URL
 const path = require('path')
-
 module.exports = new BaseKonnector(start)
 
 /**
@@ -27,6 +31,8 @@ async function start(fields) {
   try {
     const { access_token } = fields
     const context = { access_token }
+
+    await refreshToken.bind(this)(context)
 
     this._account = await ensureAccountNameAndFolder(
       this._account,
@@ -168,6 +174,44 @@ async function fetchOneAlbum({ id, name, created_time }, context, fields) {
   await cozyClient.data.addReferencedFiles(albumDoc, newFileIds)
 }
 
+async function refreshToken(context) {
+  try {
+    log('info', 'refreshing the access_token')
+    const body = await cozyClient.fetchJSON(
+      'POST',
+      `/accounts/facebook/${this.accountId}/refresh`
+    )
+    const { client_id, client_secret } = body.attributes.oauth
+    const { access_token, expires_in } = await request.post(
+      'https://graph.facebook.com/v2.12/oauth/access_token',
+      {
+        form: {
+          grant_type: 'fb_exchange_token',
+          fb_exchange_token: context.access_token,
+          client_id,
+          client_secret
+        }
+      }
+    )
+    context.access_token = access_token
+
+    const expires_at = new Date(Date.now() + expires_in)
+
+    await this.updateAccountAttributes({
+      oauth: {
+        ...this._account.oauth,
+        access_token,
+        expires_at
+      }
+    })
+
+    context.access_token = body.attributes.oauth.access_token // eslint-disable-line require-atomic-updates
+  } catch (err) {
+    log('info', `Error during refresh ${err.message}`)
+    throw errors.USER_ACTION_NEEDED_OAUTH_OUTDATED
+  }
+}
+
 async function fetchListWithPaging(url, context) {
   let results = []
   let refreshNb = 0
@@ -182,18 +226,8 @@ async function fetchListWithPaging(url, context) {
       log('warn', 'error while requesting facebook:')
       log('warn', err.message)
       if (refreshNb === 0) {
-        try {
-          log('info', 'refreshing the access_token')
-          refreshNb++
-          const body = await cozyClient.fetchJSON(
-            'POST',
-            `/accounts/facebook/${this._account._id}/refresh`
-          )
-          context.access_token = body.attributes.oauth.access_token // eslint-disable-line require-atomic-updates
-        } catch (err) {
-          log('info', `Error during refresh ${err.message}`)
-          throw errors.USER_ACTION_NEEDED_OAUTH_OUTDATED
-        }
+        refreshNb++
+        await this.refreshToken(context)
       } else {
         throw err
       }
