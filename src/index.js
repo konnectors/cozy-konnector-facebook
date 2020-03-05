@@ -64,13 +64,14 @@ async function ensureAccountNameAndFolder(account, fields, context) {
   const firstRun = !account || !account.label
 
   if (!firstRun) return account
+  let newAccount
 
   try {
     log('info', `This is the first run, getting facebook account name`)
     const label = await normalizeFilename(await fetchMeName(context))
 
     log('info', `Updating the label of the account`)
-    let newAccount = await cozyClient.data.updateAttributes(
+    newAccount = await cozyClient.data.updateAttributes(
       'io.cozy.accounts',
       account._id,
       {
@@ -97,7 +98,6 @@ async function ensureAccountNameAndFolder(account, fields, context) {
       'io.cozy.accounts',
       newAccount._id,
       {
-        label,
         auth: {
           ...newAccount.auth,
           folderPath: fields.folderPath,
@@ -111,6 +111,8 @@ async function ensureAccountNameAndFolder(account, fields, context) {
       'warn',
       `Error while trying to update folder path or account name: ${err.message}`
     )
+    if (newAccount) return newAccount
+    else return account
   }
 }
 
