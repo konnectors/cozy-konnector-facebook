@@ -44,7 +44,7 @@
     "chalk": "4.0.0",
     "clear": "0.1.0",
     "configstore": "5.0.1",
-    "copy-webpack-plugin": "6.0.1",
+    "copy-webpack-plugin": "6.0.3",
     "cozy-app-publish": "0.22.3",
     "cozy-client": "13.8.3",
     "cozy-jobs-cli": "1.13.5",
