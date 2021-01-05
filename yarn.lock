@@ -1122,28 +1122,6 @@ cozy-client@16.10.2, cozy-client@^16.10.2:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@16.8.0:
-  version "16.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-16.8.0.tgz#44378ed226697a1d4000f8ac6b5f7ca1ba66bd01"
-  integrity sha512-FeCpbXAEl40WPYneIWo8S6F2FaJWGq1PE2XG2qyGZ/iyWrAtX5O5IUL9/oEG1B2C1ZVlNgXENDoqp6UIlHbLOQ==
-  dependencies:
-    "@cozy/minilog" "1.0.0"
-    btoa "^1.2.1"
-    cozy-device-helper "^1.7.3"
-    cozy-logger "^1.6.0"
-    cozy-stack-client "^16.8.0"
-    lodash "^4.17.13"
-    microee "^0.0.6"
-    node-fetch "^2.6.1"
-    open "^7.0.2"
-    prop-types "^15.6.2"
-    react-redux "^7.2.0"
-    redux "^3.7.2"
-    redux-thunk "^2.3.0"
-    server-destroy "^1.0.1"
-    sift "^6.0.0"
-    url-search-params-polyfill "^7.0.0"
-
 cozy-device-helper@^1.7.3:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.1.tgz#91ec60d67248489738b2daaafe83db8f6a6e1e9f"
@@ -1162,7 +1140,7 @@ cozy-doctypes@^1.75.1:
     lodash "4.17.19"
     prop-types "^15.7.2"
 
-cozy-jobs-cli@1.15.4, cozy-jobs-cli@^1.15.4:
+cozy-jobs-cli@1.15.4:
   version "1.15.4"
   resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.15.4.tgz#df88bdd746f91814d1f1a50aaf30a5f0c04bc9ae"
   integrity sha512-CfYlQorpXDwHPMDQsfyVJwSmboenojL7qjKcGDmcQ/y2Gbs+l//mD7N7kzZjz8MtVSCCAwDZDWtEKFM6aclz4A==
@@ -1181,14 +1159,13 @@ cozy-jobs-cli@1.15.4, cozy-jobs-cli@^1.15.4:
     pretty "2.0.0"
     strip-json-comments "3.1.1"
 
-cozy-konnector-build@1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/cozy-konnector-build/-/cozy-konnector-build-1.1.4.tgz#822adf5f0fc89cba03071b91ae0e7ef56df7f671"
-  integrity sha512-8g31+8cuBSSoVYExK5lFVLi2KVgkAbVwsjGcR76b691T4HcMpaDFPvLGW8wZ2vZe+3musYcfL2nzSuLzwaIL4g==
+cozy-konnector-build@1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/cozy-konnector-build/-/cozy-konnector-build-1.1.5.tgz#87745ddded6f773b26fbf4d8f08b1be0bd39354c"
+  integrity sha512-pf71K2JBkws+azxsFJRADCfqaAAZpEVpE4/3aWD3tYvCKOjEo5Abg1AMFXKRbSMMzzZMTJdr36vMVRYV4QLhrA==
   dependencies:
     copy-webpack-plugin "7.0.0"
     cozy-app-publish "0.26.0"
-    cozy-jobs-cli "^1.15.4"
     eslint-config-cozy-app "2.0.0"
     git-directory-deploy "1.5.1"
     husky "4.3.6"
