@@ -2339,28 +2339,6 @@ cozy-client-js@^0.20.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@16.19.0:
-  version "16.19.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-16.19.0.tgz#ad5e549cb1ea9cd6fdf5e72f478a22dc6a456e5f"
-  integrity sha512-P6/00osSAAjf8WE0DMGWfpOkf3nWE9j5VBrQSS/cJ++M7TDD52sGrq5SaeKN0m+CnQliPY9ZH2AeawdjVmPZmw==
-  dependencies:
-    "@cozy/minilog" "1.0.0"
-    btoa "^1.2.1"
-    cozy-device-helper "^1.7.3"
-    cozy-logger "^1.6.0"
-    cozy-stack-client "^16.19.0"
-    lodash "^4.17.13"
-    microee "^0.0.6"
-    node-fetch "^2.6.1"
-    open "^7.0.2"
-    prop-types "^15.6.2"
-    react-redux "^7.2.0"
-    redux "^3.7.2"
-    redux-thunk "^2.3.0"
-    server-destroy "^1.0.1"
-    sift "^6.0.0"
-    url-search-params-polyfill "^7.0.0"
-
 cozy-client@27.15.0, cozy-client@^27.15.0:
   version "27.15.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-27.15.0.tgz#7ec2e4ad9a8fdfd9f3998583461d1e34c340c725"
@@ -2395,13 +2373,6 @@ cozy-device-helper@^1.12.0:
   dependencies:
     lodash "^4.17.19"
 
-cozy-device-helper@^1.7.3:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.1.tgz#91ec60d67248489738b2daaafe83db8f6a6e1e9f"
-  integrity sha512-BrjZNK5JDQwnihRDV4ZBUj3JbNuGD08m3OS8FkA9yUnBf6vOJZABG3tYyAVLNEIo8gZaMt+XCPwmqfzPqgPXNQ==
-  dependencies:
-    lodash "4.17.19"
-
 cozy-doctypes@^1.83.5:
   version "1.83.5"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.5.tgz#2608bbedfbf0d28efa0695423a2ea7c5137f5ef7"
@@ -2417,13 +2388,6 @@ cozy-flags@2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.7.1.tgz#f37251fee248ef9bef079a22bc52954f1a892dfc"
   integrity sha512-TtVhuyMSRADRr4q5LSaRjq6u03S5m1zkZRc8n3q8bfad86FizqGC02m3e/Zh4kWTwnsO0pVW+mzeVSsBqDVT/g==
-  dependencies:
-    microee "^0.0.6"
-
-cozy-flags@^2.5.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.5.1.tgz#15b8da07cd13ef412ab6875c2649f729b1c07705"
-  integrity sha512-KBZ9orF+mLMRsLTbiCTOi9dDla2MjNJsov+TJ8RtmacFHbprt9d0i0H+1W1Lesvah4DX2YZEVGVDwKNCm70N+A==
   dependencies:
     microee "^0.0.6"
 
@@ -2508,16 +2472,6 @@ cozy-logger@^1.6.0:
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
-
-cozy-stack-client@^16.19.0:
-  version "16.19.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-16.19.0.tgz#8d700422e75cb426c88ea7e9c4677e0f625f6623"
-  integrity sha512-TyexZQdqvEsa7THvMnvgszQ2Ndo9bZ4XOiy6W8FzTq2wPuTLC8JK6WBVlBG7e+GCVcncdDMH3QuOywQZqDvolQ==
-  dependencies:
-    cozy-flags "^2.5.0"
-    detect-node "^2.0.4"
-    mime "^2.4.0"
-    qs "^6.7.0"
 
 cozy-stack-client@^27.15.0:
   version "27.15.0"
@@ -4274,7 +4228,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@^4.17.11, lodash-es@^4.2.1:
+lodash-es@^4.17.11:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
@@ -4294,22 +4248,17 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
-lodash@4, lodash@^4.14.2, lodash@^4.17.13, lodash@^4.17.19, lodash@^4.2.1:
+lodash@4, lodash@^4.14.2, lodash@^4.17.13, lodash@^4.17.19:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
-
-lodash@4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.0.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -4772,14 +4721,6 @@ open@8.4.0:
     define-lazy-prop "^2.0.0"
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
-
-open@^7.0.2:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/open/-/open-7.1.0.tgz#68865f7d3cb238520fa1225a63cf28bcf8368a1c"
-  integrity sha512-lLPI5KgOwEYCDKXf4np7y1PBEkj7HYIyP2DY8mVDRnx0VIIu6bNrRB0R66TuO7Mack6EnTNLm4uvcl1UoklTpA==
-  dependencies:
-    is-docker "^2.0.0"
-    is-wsl "^2.1.1"
 
 opencollective-postinstall@^2.0.2:
   version "2.0.3"
@@ -5324,16 +5265,6 @@ redux-thunk@^2.3.0:
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
-
-redux@^3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
-  integrity sha512-pNqnf9q1hI5HHZRBkj3bAngGZW/JMCmexDlOxw4XagXY2o1327nHH54LoTjiPJ0gizoqPDRqWyX/00g0hD6w+A==
-  dependencies:
-    lodash "^4.2.1"
-    lodash-es "^4.2.1"
-    loose-envify "^1.1.0"
-    symbol-observable "^1.0.3"
 
 regenerate-unicode-properties@^10.0.1:
   version "10.0.1"
@@ -5943,7 +5874,7 @@ svgo@1.3.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-symbol-observable@^1.0.3, symbol-observable@^1.2.0:
+symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
@@ -6191,11 +6122,6 @@ url-parse@^1.4.7:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
-
-url-search-params-polyfill@^7.0.0:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-7.0.1.tgz#b900cd9a0d9d2ff757d500135256f2344879cbff"
-  integrity sha512-bAw7L2E+jn9XHG5P9zrPnHdO0yJub4U+yXJOdpcpkr7OBd9T8oll4lUos0iSGRcDvfZoLUKfx9a6aNmIhJ4+mQ==
 
 url-search-params-polyfill@^8.0.0:
   version "8.1.1"
