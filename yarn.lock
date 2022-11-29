@@ -2467,10 +2467,10 @@ cozy-client-js@^0.20.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@27.26.1:
-  version "27.26.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-27.26.1.tgz#d4c27acf6b3c23de27d22632d8eeaeaabdc57b8e"
-  integrity sha512-f++8ZdhJPthosFOCkRNZ5qrunOc1vDlA6GMbj2xabfd104pLmmrzD9fZ5t7v8MJAUYx7vBRIlUVCRtmQgg6zCg==
+cozy-client@27.26.4:
+  version "27.26.4"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-27.26.4.tgz#6e5f194e459826297ab8885abbcab25a8b4011da"
+  integrity sha512-1mK7OqaVs9i/bSRQq9S2DFRCxbCe5TpEoqZVi0gjlE1CuFwiNFQrLFHkwaudk49ioJ2iABb9lsYtvlrT2EMdOw==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@types/jest" "^26.0.20"
