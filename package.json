@@ -39,7 +39,7 @@
     "fb": "2.0.0"
   },
   "devDependencies": {
-    "chalk": "4.1.2",
+    "chalk": "5.3.0",
     "clear": "0.1.0",
     "configstore": "5.0.1",
     "cozy-client": "27.26.4",
